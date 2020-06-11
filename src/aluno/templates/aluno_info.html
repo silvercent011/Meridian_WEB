@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title>Meridian - {{data['nome']}}</title>
+{% endblock %}
+
+{% block body %}
+{% include 'nav.html' %}
+
+<div class="container">
+    <div class="row">
+        <div class="card col s12 m12 l12 hoverable">
+            <div class="card-content left-align black-text">
+                <div class="row">
+                    <h6>Aluno(a):</h6>
+                    <h4>{{data['nome']}}</h4>
+                    <div class="row"></div>
+                    <div class="row"></div>
+                    <div class="col s3 m3 l3">
+                        <p>Matricula:</p>
+                        <h6>{{data['matricula']}}</h6>
+                    </div>
+                    <div class="col s3 m3 l3">
+                        <p>Turma:</p>
+                        <h6>{{data['turma']}}</h6>
+                    </div>
+                    <div class="col s3 m3 l3">
+                        <p>Turno:</p>
+                        <h6>{{data['turno']}}</h6>
+                    </div>
+                    <div class="col s3 m3 l3">
+                        <p>Nivel:</p>
+                        <h6>{{data['nivel']}}</h6>
+                    </div>
+                </div>
+                <div class="row">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

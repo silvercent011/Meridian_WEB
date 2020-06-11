@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title>Meridian</title>
+{% endblock %}
+
+{% block body %}
+<div class="row"></div>
+<div class="container">
+    <div class="row">
+        <div class="col s12 m12 l6">
+            <!-- <div class="card col s12 m6 l4 offset-m3 offset-l4"> -->
+            <div class="card col">
+                <div class="card-content center-align black-text">
+                    <div class="row">
+                        <div class="col s10 l10 m10 offset-l1 offset-m1 offset-s1 card-image">
+                            <div class="center-align">
+                                <img src="{{link}}">
+                            </div>
+                            {% if message %}
+                            <div class="center-align">
+                                <p>{{ message }}</p>
+                            </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col s10 m10 l10 offset-l1 offset-m1 offset-s1 left-align">
+                            <form method="POST">
+                                {{ form.csrf_token }}
+                                <div>
+                                    {{ form.matricula.label }}
+                                    {{ form.matricula }}
+                                </div>
+                                <div>
+                                    {{ form.dt_nascimento.label }}
+                                    {{ form.dt_nascimento }}
+                                </div>
+
+                                <div class="center-align">
+                                    <!-- {{ form.entrar }} -->
+                                    <button class="deep-purple col s12 m12 l12 btn-large waves-effect waves-light"
+                                        type="submit" name="action">Entrar
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    {% include 'infoapp.html' %}
+                </div>
+            </div>
+
+        </div>
+        <div class="col s12 m12 l6">
+            <!-- <div class="card-panel col s12 m6 l4 offset-m3 offset-l4"> -->
+            <div class="card-panel col">
+                <blockquote>
+                    A microplataforma ainda encontra-se em desenvolvimento, erros podem ocorrer durante a navegação.
+                    Estamos
+                    trabalhando o mais rápido o possível para corrigir todos os problemas e eventuais falhas.
+                </blockquote>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
