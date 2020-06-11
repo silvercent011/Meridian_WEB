@@ -9,6 +9,8 @@ from src.utils.user_loader import aluno_loader
 from src.aluno.utils.formAluno import AlunoForm
 from src.aluno.utils.modelAluno import Aluno
 
+from unidecode import unidecode
+
 aluno_bp = Blueprint('aluno_bp', __name__,
                      template_folder='./templates', static_folder='./static', url_prefix='/aluno')
 
