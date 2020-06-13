@@ -4,6 +4,7 @@ from flask_login import UserMixin
 class User(UserMixin):
     def __init__(self, id):
         self.id = id
+        self.type = 'USER'
 
 
 class User_Logged(UserMixin):
@@ -15,6 +16,7 @@ class User_Logged(UserMixin):
         self.created = object['created']
         self.nome = object['nome']
         self.token = token
+        self.type = 'USER'
 
     def is_authenticated(self):
         return True

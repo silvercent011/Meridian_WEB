@@ -3,11 +3,11 @@ from flask_login import current_user, login_user, logout_user, login_required
 from flask import current_app as app
 
 from config import Settings
-from src.utils.request import req_level2
+from src.utils.request import req_level2, req_level0
 from src.utils.user_loader import aluno_loader
 
 from src.aluno.utils.formAluno import AlunoForm
-from src.aluno.utils.modelAluno import Aluno
+from src.aluno.utils.modelAluno import Aluno, Aluno_Logged
 
 from unidecode import unidecode
 
@@ -50,8 +50,17 @@ def login():
 @aluno_bp.route('/data/<aluno_id>', methods=['GET', 'POST'])
 @login_required
 def painel(aluno_id):
-    dados = session['ALNAT']
-    return render_template('aluno_info.html', data=dados, link=Settings().LOGO_LINK)
+    dados = Aluno_Logged(session['ALNAT'])
+    try:
+        matific = req_level0(f"alunosp/matific/{dados.matricula}")
+    except:
+        matific = None
+
+    try:
+        inspira = req_level0(f"alunosp/inspira/{dados.matricula}")
+    except:
+        inspira = None
+    return render_template('aluno_info.html', data=dados, matific=matific, inspira=inspira, link=Settings().LOGO_LINK)
 
 
 @aluno_bp.route('/logout')

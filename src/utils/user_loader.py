@@ -15,6 +15,7 @@ def user_load(obj):
         user = User(obj)
         return user
 
+@login_manager.user_loader
 def aluno_loader(obj):
     try:
         user = Aluno(obj['_id'])

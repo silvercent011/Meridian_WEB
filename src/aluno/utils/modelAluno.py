@@ -4,6 +4,7 @@ from flask_login import UserMixin
 class Aluno(UserMixin):
     def __init__(self, id):
         self.id = id
+        self.type = 'ALUNO'
 
 
 class Aluno_Logged(UserMixin):
@@ -16,3 +17,4 @@ class Aluno_Logged(UserMixin):
         self.nivel = object['nivel']
         self.created = object['created']
         self.nome = object['nome']
+        self.type = 'ALUNO'

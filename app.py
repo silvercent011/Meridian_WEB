@@ -13,6 +13,9 @@ with app.app_context():
     from src.aluno.aluno import aluno_bp
     app.register_blueprint(aluno_bp, url_prefix='/aluno')
 
+    from src.admin.admin import admin_bp
+    app.register_blueprint(admin_bp, url_prefix='/admin')
+
 
 @app.route('/')
 def main():

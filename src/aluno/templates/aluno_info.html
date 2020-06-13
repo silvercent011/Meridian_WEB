@@ -2,6 +2,11 @@
 
 {% block head %}
 <title>Meridian - {{data['nome']}}</title>
+<script>
+    $(document).ready(function () {
+        $('.collapsible').collapsible();
+    });
+</script>
 {% endblock %}
 
 {% block body %}
@@ -9,30 +14,61 @@
 
 <div class="container">
     <div class="row">
-        <div class="card col s12 m12 l12 hoverable purple accent-4">
-            <div class="card-content left-align white-text">
-                <div class="row">
-                    <h6><b>DASHBOARD</b></h6>
-                    <h6>Aluno(a):</h6>
-                    <h4><i class="small material-icons">account_box</i><b> {{data['nome']}}</b></h4>
-                    <div class="col s3 m3 l3">
-                        <p>Matricula:</p>
-                        <h6><b>{{data['matricula']}}</b></h6>
-                    </div>
-                    <div class="col s3 m3 l3">
-                        <p>Turma:</p>
-                        <h6><b>{{data['turma']}}</b></h6>
-                    </div>
-                    <div class="col s3 m3 l3">
-                        <p>Turno:</p>
-                        <h6><b>{{data['turno']}}</b></h6>
-                    </div>
-                    <div class="col s3 m3 l3">
-                        <p>Nivel:</p>
-                        <h6><b>{{data['nivel']}}</b></h6>
+        <div class="col s12 m12 l12">
+            <div class="card hoverable purple accent-4">
+                <div class="card-content left-align white-text">
+                    <div class="row">
+                        <div class="col s12 m12 l12">
+                            <h6><b>DASHBOARD</b></h6>
+                            <h6>Aluno(a):</h6>
+                            <h4><b>{{data.nome}}</b></h4>
+                            <div class="col s4 m4 l4">
+                                <p>Matricula:</p>
+                                <h6><b>{{data.matricula}}</b></h6>
+                            </div>
+                            <div class="col s4 m4 l4">
+                                <p>Turma:</p>
+                                <h6><b>{{data.turma}}</b></h6>
+                            </div>
+                            <div class="col s4 m4 l4">
+                                <p>Turno:</p>
+                                <h6><b>{{data.turno}}</b></h6>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col s12 m12 l12">
+            <ul class="collapsible">
+                <li>
+                    <div class="collapsible-header"><b>INFORMAÇÕES DE SERVIÇOS</b></div>
+                </li>
+                {% if matific %}
+                <li>
+                    <div class="collapsible-header"><i class="material-icons">calculate</i>Matific</div>
+                    <div class="collapsible-body white">
+                        <h5><b>{{matific['nome']}}</b></h5>
+                        <h6>Login: {{matific['login']}}</h6>
+                        <h6>Senha: {{matific['password']}}</h6>
+                        <a href="https://www.matific.com/bra/pt-br/login-page/?username={{matific['login']}}" class="waves-effect purple accent-4 waves-light btn">Acessar o Matific</a>
+                    </div>
+                </li>
+                {% endif %}
+                {% if inspira %}
+                <li>
+                    <div class="collapsible-header"><i class="material-icons">school</i>Opet Inspira</div>
+                    <div class="collapsible-body white">
+                        <h5><b>{{inspira['nome']}}</b></h5>
+                        <h6>Login: {{inspira['email']}}</h6>
+                        <h6>Senha: {{inspira['senha']}}</h6>
+                        <a href="https://opetinspira.com.br/login" class="waves-effect purple accent-4 waves-light btn">Acessar Opet Inspira</a>
+                    </div>
+                </li>
+                {% endif %}
+            </ul>
         </div>
     </div>
 </div>

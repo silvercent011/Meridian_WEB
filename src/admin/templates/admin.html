@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title>Meridian</title>
+{% endblock %}
+
+{% block body %}
+{% include 'nav.html' %}
+
+<div class="container">
+    <div class="card">
+        <p>Bem-vindo(a) {{user.nome}}</p>
+    </div>
+    {% for x in urls %}
+    <h1>{{x}}</h1>
+    {% endfor %}
+</div>
+
+{% endblock %}

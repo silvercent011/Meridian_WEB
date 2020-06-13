@@ -17,11 +17,6 @@
                             <div class="center-align">
                                 <img src="{{link}}">
                             </div>
-                            {% if message %}
-                            <div class="center-align">
-                                <p>{{ message }}</p>
-                            </div>
-                            {% endif %}
                         </div>
                     </div>
                     <div class="row">
@@ -39,15 +34,17 @@
 
                                 <div class="center-align">
                                     <!-- {{ form.entrar }} -->
-                                    <button class="deep-purple col s12 m12 l12 btn-large waves-effect waves-light"
+                                    <button class="purple accent-4 col s12 m12 l12 btn-large waves-effect waves-light"
                                         type="submit" name="action">Entrar
                                     </button>
                                     <div class="row"></div>
                                 </div>
                             </form>
-                            <button class="col s12 m12 l12 btn-flat waves-effect waves-light disabled" type="admin"
-                                name="admin">Sou professor
-                            </button>
+                            <form action="/auth/login">
+                                <button class="col s12 m12 l12 btn-flat waves-effect waves-light " type="submit"
+                                    name="admin">Sou professor
+                                </button>
+                            </form>
                         </div>
                     </div>
                     {% include 'infoapp.html' %}
@@ -55,6 +52,15 @@
             </div>
 
         </div>
+        {% if message %}
+        <div class="col s12 m12 l6">
+            <div class="card red white-text pulse center-align">
+                <br>
+                <p>{{ message }}</p>
+                <br>
+            </div>
+        </div>
+        {% endif %}
         <div class="col s12 m12 l6">
             <!-- <div class="card-panel col s12 m6 l4 offset-m3 offset-l4"> -->
             <div class="card-panel col">

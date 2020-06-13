@@ -2,8 +2,19 @@ import requests
 import json
 from config import Settings
 
+def req_level0(path):
+    # Requisição sem autenticação
+    url = f"{Settings().API_LINK}{path}"
+    data = {
+        "key": Settings().MD5_KEY,
+    }
+    retorno = requests.get(url, data=data)
 
-def req_level1(path, data):
+    texto = retorno.text
+
+    return json.loads(texto)
+
+def req_level1(path, data = None):
     # Requisição sem autenticação
     url = f"{Settings().API_LINK}{path}"
     # data = json.dumps(data)
