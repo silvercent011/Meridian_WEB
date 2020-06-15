@@ -19,7 +19,7 @@
                 <div class="card-content left-align white-text">
                     <div class="row">
                         <div class="col s12 m12 l12">
-                            <h6><b>DASHBOARD</b></h6>
+                            <h6><b>DASHBOARD - {{data.nivel}}</b></h6>
                             <h6>Aluno(a):</h6>
                             <h4><b>{{data.nome}}</b></h4>
                             <div class="col s4 m4 l4">
@@ -44,8 +44,20 @@
         <div class="col s12 m12 l12">
             <ul class="collapsible">
                 <li>
-                    <div class="collapsible-header"><b>INFORMAÇÕES DE SERVIÇOS</b></div>
+                    <div class="collapsible-header"><b>INFORMAÇÕES E SERVIÇOS</b></div>
                 </li>
+
+                <li>
+                    <div class="collapsible-header"><i class="material-icons">receipt_long</i>Boletim</div>
+                    <div class="collapsible-body white">
+                        <h5><b>{{data.nome}}</b></h5>
+                        <h6>Matricula: {{data.matricula}}</h6>
+                        <h6>Turma: {{data.turma}}</h6>
+                        <a href="{{getBoletim()}}{{data.matricula}}"
+                            class="waves-effect purple accent-4 waves-light btn">Acessar o Boletim</a>
+                    </div>
+                </li>
+
                 {% if matific %}
                 <li>
                     <div class="collapsible-header"><i class="material-icons">calculate</i>Matific</div>
@@ -53,7 +65,8 @@
                         <h5><b>{{matific['nome']}}</b></h5>
                         <h6>Login: {{matific['login']}}</h6>
                         <h6>Senha: {{matific['password']}}</h6>
-                        <a href="https://www.matific.com/bra/pt-br/login-page/?username={{matific['login']}}" class="waves-effect purple accent-4 waves-light btn">Acessar o Matific</a>
+                        <a href="https://www.matific.com/bra/pt-br/login-page/?username={{matific['login']}}"
+                            class="waves-effect purple accent-4 waves-light btn">Acessar o Matific</a>
                     </div>
                 </li>
                 {% endif %}
@@ -64,7 +77,8 @@
                         <h5><b>{{inspira['nome']}}</b></h5>
                         <h6>Login: {{inspira['email']}}</h6>
                         <h6>Senha: {{inspira['senha']}}</h6>
-                        <a href="https://opetinspira.com.br/login" class="waves-effect purple accent-4 waves-light btn">Acessar Opet Inspira</a>
+                        <a href="https://opetinspira.com.br/login"
+                            class="waves-effect purple accent-4 waves-light btn">Acessar Opet Inspira</a>
                     </div>
                 </li>
                 {% endif %}

@@ -11,6 +11,7 @@ class Settings:
     SCH_NAME = getenv('SCH_NAME')
     PORT = getenv('PORT')
     VERSION = getenv('VERSION')
+    BOLETIM_LINK = getenv('LINK_BOLETIM')
 
 
 app_config = Settings()

@@ -13,9 +13,6 @@ from src.auth.utils.formUser import AdminLoginForm
 from src.auth.utils.modelUser import User, User_Logged
 from src.aluno.utils.modelAluno import Aluno_Logged
 
-def getVersion():
-    return Settings().VERSION
-app.jinja_env.globals.update(getVersion=getVersion)
 
 def returnUser():
     try:

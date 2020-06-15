@@ -19,6 +19,9 @@ aluno_bp = Blueprint('aluno_bp', __name__,
 def home():
     return redirect(url_for('aluno_bp.login'))
 
+def getBoletim():
+    return Settings().BOLETIM_LINK
+app.jinja_env.globals.update(getBoletim=getBoletim)
 
 @aluno_bp.route('/data', methods=['GET', 'POST'])
 def login():
@@ -54,12 +57,17 @@ def painel(aluno_id):
     try:
         matific = req_level0(f"alunosp/matific/{dados.matricula}")
     except:
-        matific = None
+        matific = False
 
     try:
         inspira = req_level0(f"alunosp/inspira/{dados.matricula}")
     except:
-        inspira = None
+        inspira = False
+    
+    if 'error' in matific:
+        matific = False
+    if 'error' in inspira:
+        inspira = False
     return render_template('aluno_info.html', data=dados, matific=matific, inspira=inspira, link=Settings().LOGO_LINK)
 
 
