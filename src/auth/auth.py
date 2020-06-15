@@ -12,6 +12,7 @@ from src.auth.utils.modelUser import User, User_Logged
 auth_bp = Blueprint('auth_bp', __name__,
                     template_folder='./templates', static_folder='./static')
 
+
 @auth_bp.route('/', methods=['GET', 'POST'])
 def home():
     return redirect(url_for('auth_bp.login'))
@@ -24,13 +25,21 @@ def login():
         if request.method == 'POST' and form.validate():
             cpf = request.form.get('cpf')
             senha = request.form.get('senha')
-            data = {"cpf": cpf, "password": senha}
-            req = req_level1('users/auth', data)
-            req1 = req['userData']
-            login_user(user_load(req1), remember=True)
-            session['USR'] = req1
-            session['TKN'] = req['token']
-            return redirect(url_for('auth_bp.painel'))
+            try:
+                data = {"cpf": cpf, "password": senha}
+                req = req_level1('users/auth', data)
+                if 'error' in req:
+                    return render_template('login.html', form=form, link=Settings(
+                    ).LOGO_LINK, message='Erro ao fazer login. Verifique os dados e tente novamente')
+                if req['userData']['_id'] == cpf and 'error' not in req:
+                    req1 = req['userData']
+                    login_user(user_load(req1), remember=True)
+                    session['USR'] = req1
+                    session['TKN'] = req['token']
+                    return redirect(url_for('auth_bp.painel'))
+            except:
+                return render_template('login.html', form=form, link=Settings(
+                ).LOGO_LINK, message='Não foi possível fazer login, verifique os dados e tente novamente')
         else:
             return render_template('login.html', form=form, link=Settings().LOGO_LINK)
     else:
@@ -40,11 +49,12 @@ def login():
 @auth_bp.route('/home', methods=['GET', 'POST'])
 @login_required
 def painel():
-    userLogado = User_Logged(session['USR'], session['TKN'])
     return redirect('/admin')
+
 
 @auth_bp.route('/logout', methods=['GET', 'POST'])
 @login_required
 def logout():
+    [session.pop(key) for key in list(session.keys())]
     logout_user()
     return f"<h1>Deslogado</h1>"

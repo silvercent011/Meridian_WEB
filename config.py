@@ -10,6 +10,7 @@ class Settings:
     LOGO_LINK = getenv('LOGO_LINK')
     SCH_NAME = getenv('SCH_NAME')
     PORT = getenv('PORT')
+    VERSION = getenv('VERSION')
 
 
 app_config = Settings()

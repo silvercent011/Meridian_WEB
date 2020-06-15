@@ -67,4 +67,5 @@ def painel(aluno_id):
 @login_required
 def logout():
     logout_user()
+    [session.pop(key) for key in list(session.keys())]
     return redirect('/')

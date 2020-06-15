@@ -20,7 +20,18 @@
                         </div>
                     </div>
                     <div class="row">
-                        <h6><b>SOU PROFESSOR</b></h6>
+                        {% if message %}
+                        <div class="col s12 m12 l12">
+                            <div class="card red white-text pulse center-align">
+                                <br>
+                                <p>{{ message }}</p>
+                                <br>
+                            </div>
+                        </div>
+                        {% endif %}
+                        <div class="s12 m12 l12">
+                            <h6><b>SOU PROFESSOR</b></h6>
+                        </div>
                         <div class="col s10 m10 l10 offset-l1 offset-m1 offset-s1 left-align">
                             <form method="POST">
                                 {{ form.csrf_token }}
