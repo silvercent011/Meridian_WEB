@@ -34,23 +34,27 @@
                             <h6><b>DASHBOARD - {{data.nivel}}</b></h6>
                             <h6>Aluno(a):</h6>
                             <h4><b>{{data.nome}}</b></h4>
-                            <div class="col s4 m4 l4">
-                                <p>Matricula:</p>
-                                <h6><b>{{data.matricula}}</b></h6>
+                            <div class="row">
+                                <div class="col s6 m6 l6">
+                                    <p>Matricula:</p>
+                                    <h6><b>{{data.matricula}}</b></h6>
+                                </div>
+                                <div class="col s6 m6 l6">
+                                    <p>Turma:</p>
+                                    <h6><b>{{data.turma}}</b></h6>
+                                </div>
                             </div>
-                            <div class="col s4 m4 l4">
-                                <p>Turma:</p>
-                                <h6><b>{{data.turma}}</b></h6>
-                            </div>
-                            <div class="col s4 m4 l4">
-                                <p>Turno:</p>
-                                <h6><b>{{data.turno}}</b></h6>
+                            <div class="row">
+                                <div class="col s6 m6 l6">
+                                    <p>Turno:</p>
+                                    <h6><b>{{data.turno}}</b></h6>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="card-image">
-                    <img class="materialboxed" height="100%" style="object-fit: cover"
+                <div class="card-image hide-on-small-only">
+                    <img class="" height="100%" style="object-fit: cover;"
                         src="{{imgAluno()}}{{data.matricula}}.jpg">
                 </div>
             </div>
