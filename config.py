@@ -12,6 +12,7 @@ class Settings:
     PORT = getenv('PORT')
     VERSION = getenv('VERSION')
     BOLETIM_LINK = getenv('LINK_BOLETIM')
+    LINK_IMG_ALUNO = getenv('LINK_IMG_ALUNO')
 
 
 app_config = Settings()

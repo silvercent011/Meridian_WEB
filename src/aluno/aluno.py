@@ -23,6 +23,10 @@ def getBoletim():
     return Settings().BOLETIM_LINK
 app.jinja_env.globals.update(getBoletim=getBoletim)
 
+def imgAluno():
+    return Settings().LINK_IMG_ALUNO
+app.jinja_env.globals.update(imgAluno=imgAluno)
+
 @aluno_bp.route('/data', methods=['GET', 'POST'])
 def login():
     logout_user()

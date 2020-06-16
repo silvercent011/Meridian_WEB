@@ -7,6 +7,18 @@
         $('.collapsible').collapsible();
     });
 </script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var elems = document.querySelectorAll('.materialboxed');
+        var instances = M.Materialbox.init(elems, options);
+    });
+
+    // Or with jQuery
+
+    $(document).ready(function () {
+        $('.materialboxed').materialbox();
+    });
+</script>
 {% endblock %}
 
 {% block body %}
@@ -14,8 +26,8 @@
 
 <div class="container">
     <div class="row">
-        <div class="col s12 m12 l12">
-            <div class="card hoverable purple accent-4">
+        <div class="col">
+            <div class="card horizontal hoverable purple accent-4">
                 <div class="card-content left-align white-text">
                     <div class="row">
                         <div class="col s12 m12 l12">
@@ -37,12 +49,16 @@
                         </div>
                     </div>
                 </div>
+                <div class="card-image">
+                    <img class="materialboxed" height="100%" style="object-fit: cover"
+                        src="{{imgAluno()}}{{data.matricula}}.jpg">
+                </div>
             </div>
         </div>
     </div>
     <div class="row">
         <div class="col s12 m12 l12">
-            <ul class="collapsible">
+            <ul class="collapsible hoverable">
                 <li>
                     <div class="collapsible-header"><b>INFORMAÇÕES E SERVIÇOS</b></div>
                 </li>
