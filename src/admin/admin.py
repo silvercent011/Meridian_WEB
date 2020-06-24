@@ -119,6 +119,7 @@ def manager():
                             support.append(aluno)
         if len(support) != 0:
             alunos = support
+        #42
     return render_template('manager.html', alunos=alunos, link=Settings().LOGO_LINK, form=form)
 
 
