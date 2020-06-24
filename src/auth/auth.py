@@ -3,7 +3,7 @@ from flask_login import current_user, login_user, logout_user, login_required
 from flask import current_app as app
 
 from config import Settings
-from src.utils.request import req_level1
+from src.utils.request import PostWithoutAuth
 from src.utils.user_loader import user_load
 
 from src.auth.utils.formUser import AdminLoginForm
@@ -27,7 +27,7 @@ def login():
             senha = request.form.get('senha')
             try:
                 data = {"cpf": cpf, "password": senha}
-                req = req_level1('users/auth', data)
+                req = PostWithoutAuth('users/auth', data)
                 if 'error' in req:
                     return render_template('login.html', form=form, link=Settings(
                     ).LOGO_LINK, message='Erro ao fazer login. Verifique os dados e tente novamente')

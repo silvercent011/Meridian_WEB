@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+
+<head>
+    <script>
+        $(document).ready(function () {
+            $('.sidenav').sidenav();
+        });
+    </script>
+</head>
+
+<body>
+    <div class="row">
+        <div class="navbar-fixed">
+            <nav class="grey darken-3">
+                <div class="nav-wrapper fixed col s12 m12 l12 xl12">
+                    <a href="#" class="brand-logo left">
+                        <div class="col responsive-img valign-wrapper">
+                            {% if session['USRTYPE'] == 'USER' %}
+                            <a href="#" data-target="slide-out" class="sidenav-trigger show-on-large"><i
+                                    class="material-icons">menu</i></a>
+                            {% endif %}
+                            <br>
+                            <img src="{{link}}" height="50px">
+                        </div>
+                    </a>
+                    <ul id="nav-mobile" class="right">
+                        {% if session['USRTYPE'] == 'USER' %}
+                        <li><a href="/admin"><i class="material-icons">home</i></a></li>
+                        {% endif %}
+                        <li><a href="/aluno/logout" class="waves-effect purple accent-4 waves-light btn">Logout</a></li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+        <ul class="sidenav" id="slide-out">
+            <li><a href="/admin"><i class="material-icons">home</i>Dashboard</a></li>
+            {% for x in verificaPermissao() %}
+            <li><a href="{{x['route']}}"><i class="material-icons">{{x['icon']}}</i>{{x['title']}}</a></li>
+            {% endfor %}
+        </ul>
+    </div>
+</body>
+
+</html>

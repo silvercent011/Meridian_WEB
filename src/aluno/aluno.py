@@ -3,7 +3,7 @@ from flask_login import current_user, login_user, logout_user, login_required
 from flask import current_app as app
 
 from config import Settings
-from src.utils.request import req_level2, req_level0
+from src.utils.request import GetWithoutAuth, GetWithKey
 from src.utils.user_loader import aluno_loader
 
 from src.aluno.utils.formAluno import AlunoForm
@@ -19,13 +19,20 @@ aluno_bp = Blueprint('aluno_bp', __name__,
 def home():
     return redirect(url_for('aluno_bp.login'))
 
+
 def getBoletim():
     return Settings().BOLETIM_LINK
+
+
 app.jinja_env.globals.update(getBoletim=getBoletim)
+
 
 def imgAluno():
     return Settings().LINK_IMG_ALUNO
+
+
 app.jinja_env.globals.update(imgAluno=imgAluno)
+
 
 @aluno_bp.route('/data', methods=['GET', 'POST'])
 def login():
@@ -39,7 +46,7 @@ def login():
 
             try:
                 data = {"matricula": matricula, "dt_nascimento": dt_nascimento}
-                req = req_level2(f'alunosp/{matricula}', data)
+                req = GetWithoutAuth(f'alunosp/{matricula}', data)
                 if 'error' in req:
                     return render_template('aluno.html', form=form, link=Settings().LOGO_LINK, message=req['error'])
                 if req['_id'] == matricula and 'error' not in req:
@@ -59,15 +66,15 @@ def login():
 def painel(aluno_id):
     dados = Aluno_Logged(session['ALNAT'])
     try:
-        matific = req_level0(f"alunosp/matific/{dados.matricula}")
+        matific = GetWithKey(f"alunosp/matific/{dados.matricula}")
     except:
         matific = False
 
     try:
-        inspira = req_level0(f"alunosp/inspira/{dados.matricula}")
+        inspira = GetWithKey(f"alunosp/inspira/{dados.matricula}")
     except:
         inspira = False
-    
+
     if 'error' in matific:
         matific = False
     if 'error' in inspira:

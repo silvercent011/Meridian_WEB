@@ -3,7 +3,8 @@ import json
 from config import Settings
 from flask import session
 
-def req_level0(path):
+
+def GetWithKey(path):
     # Requisição com autenticação
     url = f"{Settings().API_LINK}{path}"
     data = {
@@ -15,7 +16,8 @@ def req_level0(path):
 
     return json.loads(texto)
 
-def req_level1(path, data = None):
+
+def PostWithoutAuth(path, data=None):
     # Requisição sem autenticação
     url = f"{Settings().API_LINK}{path}"
     # data = json.dumps(data)
@@ -26,26 +28,37 @@ def req_level1(path, data = None):
     return json.loads(texto)
 
 
-def req_level2(path, data):
+def GetWithoutAuth(path, data):
     # Requisição sem autenticação
     url = f"{Settings().API_LINK}{path}"
-    data = {
+    query = {
         "key": Settings().MD5_KEY,
-        "dt_nascimento": data['dt_nascimento']
     }
-    retorno = requests.get(url, data=data)
+    query.update(data)
+    retorno = requests.get(url, data=query)
 
     texto = retorno.text
 
     return json.loads(texto)
 
-def req_level3(path):
-    # Requisição sem autenticação
+
+def GetWithUserToken(path):
     url = f"{Settings().API_LINK}{path}"
     header = {
         "auth": session['TKN'],
     }
     retorno = requests.get(url, headers=header)
+
+    texto = retorno.text
+
+    return json.loads(texto)
+
+def PostWithUserToken(path, data):
+    url = f"{Settings().API_LINK}{path}"
+    header = {
+        "auth": session['TKN'],
+    }
+    retorno = requests.post(url, headers=header, data=data)
 
     texto = retorno.text
 
