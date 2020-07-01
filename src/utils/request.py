@@ -4,6 +4,16 @@ from config import Settings
 from flask import session
 
 
+def GetFree(path):
+    # Requisição livre
+    url = f"{Settings().API_LINK}{path}"
+    retorno = requests.get(url)
+
+    texto = retorno.text
+
+    return json.loads(texto)
+
+
 def GetWithKey(path):
     # Requisição com autenticação
     url = f"{Settings().API_LINK}{path}"

@@ -15,6 +15,9 @@ class Aluno_Logged(UserMixin):
         self.turma = object['turma']
         self.turno = object['turno']
         self.nivel = object['nivel']
+        self.email = object['email']
         self.created = object['created']
+        self.updated = object['updated']
+        self.enabled = object['enabled']
         self.nome = object['nome']
         self.type = 'ALUNO'

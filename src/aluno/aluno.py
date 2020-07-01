@@ -3,11 +3,13 @@ from flask_login import current_user, login_user, logout_user, login_required
 from flask import current_app as app
 
 from config import Settings
-from src.utils.request import GetWithoutAuth, GetWithKey
+from src.utils.request import GetWithoutAuth, GetWithKey, GetFree
 from src.utils.user_loader import aluno_loader
 
 from src.aluno.utils.formAluno import AlunoForm
 from src.aluno.utils.modelAluno import Aluno, Aluno_Logged
+
+from src.admin.admin import returnUser
 
 from unidecode import unidecode
 
@@ -39,6 +41,7 @@ def login():
     logout_user()
     if current_user.is_authenticated == False:
         form = AlunoForm(request.form)
+        posts = GetFree(f'posts')
         if request.method == 'POST' and form.validate():
             matricula = request.form.get('matricula')
             dt = str(request.form.get('dt_nascimento')).split('-')
@@ -54,17 +57,18 @@ def login():
                     session['ALNAT'] = req
                     return redirect(f'/aluno/data/{matricula}')
             except:
-                return render_template('aluno.html', form=form, link=Settings().LOGO_LINK, message='Erro no servidor, verifique as informações')
+                return render_template('aluno.html', form=form, posts=posts, link=Settings().LOGO_LINK, message='Erro no servidor, verifique as informações')
         else:
-            return render_template('aluno.html', form=form, link=Settings().LOGO_LINK)
+            return render_template('aluno.html', form=form, posts=posts, link=Settings().LOGO_LINK)
     else:
-        return render_template('aluno.html', form=form, link=Settings().LOGO_LINK)
+        return render_template('aluno.html', form=form, posts=posts, link=Settings().LOGO_LINK)
 
 
 @aluno_bp.route('/data/<aluno_id>', methods=['GET', 'POST'])
 @login_required
 def painel(aluno_id):
     dados = Aluno_Logged(session['ALNAT'])
+    user = returnUser() 
     try:
         matific = GetWithKey(f"alunosp/matific/{dados.matricula}")
     except:
@@ -74,12 +78,19 @@ def painel(aluno_id):
         inspira = GetWithKey(f"alunosp/inspira/{dados.matricula}")
     except:
         inspira = False
+    
+    try:
+        estuda = GetWithKey(f"alunosp/estuda/{dados.matricula}")
+    except:
+        estuda = False
 
     if 'error' in matific:
         matific = False
     if 'error' in inspira:
         inspira = False
-    return render_template('aluno_info.html', data=dados, matific=matific, inspira=inspira, link=Settings().LOGO_LINK)
+    if 'error' in estuda:
+        estuda = False
+    return render_template('aluno_info.html', data=dados, matific=matific, inspira=inspira, estuda=estuda, link=Settings().LOGO_LINK)
 
 
 @aluno_bp.route('/logout')
