@@ -73,3 +73,25 @@ def PostWithUserToken(path, data):
     texto = retorno.text
 
     return json.loads(texto)
+
+def PatchWithUserToken(path, data):
+    url = f"{Settings().API_LINK}{path}"
+    header = {
+        "auth": session['TKN'],
+    }
+    retorno = requests.patch(url, headers=header, data=data)
+
+    texto = retorno.text
+
+    return json.loads(texto)
+
+def DeleteWithUserToken(path):
+    url = f"{Settings().API_LINK}{path}"
+    header = {
+        "auth": session['TKN'],
+    }
+    retorno = requests.delete(url, headers=header)
+
+    texto = retorno.text
+
+    return json.loads(texto)

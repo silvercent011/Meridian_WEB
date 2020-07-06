@@ -13,13 +13,15 @@ from src.admin.admin import returnUser
 
 from unidecode import unidecode
 
+from datetime import datetime
+
 aluno_bp = Blueprint('aluno_bp', __name__,
-                     template_folder='./templates', static_folder='./static', url_prefix='/aluno')
+                     template_folder='./templates', static_folder='./static', url_prefix='/alunos')
 
 
-@aluno_bp.route('/', methods=['GET', 'POST'])
-def home():
-    return redirect(url_for('aluno_bp.login'))
+# @aluno_bp.route('/', methods=['GET', 'POST'])
+# def home():
+#     return redirect(url_for('aluno_bp.login'))
 
 
 def getBoletim():
@@ -36,12 +38,36 @@ def imgAluno():
 app.jinja_env.globals.update(imgAluno=imgAluno)
 
 
-@aluno_bp.route('/data', methods=['GET', 'POST'])
+def getPosts():
+    getted = GetFree(f'posts')[::-1]
+    posts = []
+    for x in getted:
+        x['created'] = x['created'].split('T')[0]
+        data = datetime.strptime(x['created'], "%Y-%m-%d").date()
+        x['created'] = f'{data.strftime("%d/%m/%Y")}'
+        x['dataformat'] = x['expires'].split('T')[0]
+        x['dataformat'] = datetime.strptime(x['dataformat'], "%Y-%m-%d").date()
+    for x in getted:
+        datenow = datetime.now().date()
+        if x['dataformat'] >= datenow:
+            posts.append(x)
+    return posts
+
+
+def GetAlunoEditForm(data):
+
+    form = AlunoEditForm(data),
+
+    return form
+
+
+@aluno_bp.route('/', methods=['GET', 'POST'])
 def login():
     logout_user()
+    posts = getPosts()
+
     if current_user.is_authenticated == False:
         form = AlunoForm(request.form)
-        posts = GetFree(f'posts')
         if request.method == 'POST' and form.validate():
             matricula = request.form.get('matricula')
             dt = str(request.form.get('dt_nascimento')).split('-')
@@ -51,11 +77,11 @@ def login():
                 data = {"matricula": matricula, "dt_nascimento": dt_nascimento}
                 req = GetWithoutAuth(f'alunosp/{matricula}', data)
                 if 'error' in req:
-                    return render_template('aluno.html', form=form, link=Settings().LOGO_LINK, message=req['error'])
+                    return render_template('aluno.html', form=form, posts=posts, link=Settings().LOGO_LINK, message=req['error'])
                 if req['_id'] == matricula and 'error' not in req:
                     login_user(aluno_loader(req))
                     session['ALNAT'] = req
-                    return redirect(f'/aluno/data/{matricula}')
+                    return redirect(f'/alunos/{matricula}')
             except:
                 return render_template('aluno.html', form=form, posts=posts, link=Settings().LOGO_LINK, message='Erro no servidor, verifique as informações')
         else:
@@ -64,33 +90,38 @@ def login():
         return render_template('aluno.html', form=form, posts=posts, link=Settings().LOGO_LINK)
 
 
-@aluno_bp.route('/data/<aluno_id>', methods=['GET', 'POST'])
+@aluno_bp.route('/<aluno_id>', methods=['GET', 'POST'])
 @login_required
 def painel(aluno_id):
     dados = Aluno_Logged(session['ALNAT'])
-    user = returnUser() 
+    user = returnUser()
     try:
         matific = GetWithKey(f"alunosp/matific/{dados.matricula}")
+        if 'error' in matific:
+            matific = False
     except:
         matific = False
 
     try:
         inspira = GetWithKey(f"alunosp/inspira/{dados.matricula}")
+        if 'error' in inspira:
+            inspira = False
     except:
         inspira = False
-    
+
     try:
         estuda = GetWithKey(f"alunosp/estuda/{dados.matricula}")
+        if 'error' in estuda:
+            estuda = False
     except:
         estuda = False
 
-    if 'error' in matific:
-        matific = False
-    if 'error' in inspira:
-        inspira = False
-    if 'error' in estuda:
-        estuda = False
-    return render_template('aluno_info.html', data=dados, matific=matific, inspira=inspira, estuda=estuda, link=Settings().LOGO_LINK)
+    services = {}
+    services['matific'] = matific
+    services['inspira'] = inspira
+    services['estuda'] = estuda
+
+    return render_template('aluno_info.html', data=dados, services=services, link=Settings().LOGO_LINK)
 
 
 @aluno_bp.route('/logout')
@@ -99,3 +130,15 @@ def logout():
     logout_user()
     [session.pop(key) for key in list(session.keys())]
     return redirect('/')
+
+
+@aluno_bp.route('/<aluno_id>/edit')
+@login_required
+def edit(aluno_id):
+    return redirect(url_for(f'admin_bp.editAluno', matricula=aluno_id))
+
+
+@aluno_bp.route('/<aluno_id>/delete')
+@login_required
+def delete(aluno_id):
+    return redirect(url_for(f'admin_bp.deleteAluno', matricula=aluno_id))

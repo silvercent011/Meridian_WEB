@@ -19,7 +19,7 @@ with app.app_context():
     app.register_blueprint(auth_bp, url_prefix='/auth')
 
     from src.aluno.aluno import aluno_bp
-    app.register_blueprint(aluno_bp, url_prefix='/aluno')
+    app.register_blueprint(aluno_bp, url_prefix='/alunos')
 
     from src.admin.admin import admin_bp
     app.register_blueprint(admin_bp, url_prefix='/admin')
@@ -27,7 +27,7 @@ with app.app_context():
 
 @app.route('/')
 def main():
-    return redirect('/aluno')
+    return redirect('/alunos')
 
 
 if __name__ == "__main__":

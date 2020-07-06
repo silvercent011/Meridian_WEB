@@ -7,6 +7,17 @@
 {% block body %}
 <div class="row"></div>
 <div class="container">
+    {% if message %}
+    <div class="row">
+        <div class="col s12 m12 l12">
+            <div class="card red white-text pulse center-align">
+                <br>
+                <p>{{ message }}</p>
+                <br>
+            </div>
+        </div>
+    </div>
+    {% endif %}
     <div class="row">
         <div class="col s12 m12 l6">
             <!-- <div class="card col s12 m6 l4 offset-m3 offset-l4"> -->
@@ -52,33 +63,29 @@
             </div>
 
         </div>
-        {% if message %}
-        <div class="col s12 m12 l6">
-            <div class="card red white-text pulse center-align">
-                <br>
-                <p>{{ message }}</p>
-                <br>
-            </div>
-        </div>
-        {% endif %}
         <div class="col s12 m12 l6">
             <!-- <div class="card-panel col s12 m6 l4 offset-m3 offset-l4"> -->
-                <ul class="collection with-header">
-                    <li class="collection-header center-align"><h5><b>AVISOS</b></h5></li>
-                    
-                    {% if posts %}
+            <ul class="collection with-header">
+                <li class="collection-header center-align">
+                    <h5><b>AVISOS</b></h5>
+                </li>
+
+                {% if posts %}
+                <div style="overflow: auto; height: 525px;">
                     {% for x in posts %}
                     <li class="collection-item center-align">
-                          <div class="card blue-grey darken-1 left-align">
+                        <div class="card blue-grey darken-1 left-align">
                             <div class="card-content white-text">
-                              <span class="card-title"><b>{{x['title']}}</b></span>
-                              <p>{{x['content']}}</p>
+                                <span class="card-title"><b>{{x['title']}}</b></span>
+                                <p>{{x['content']}}</p>
+                                <p>Postado em <b>{{x['created']}}</b></p>
                             </div>
-                          </div>
-                        </li>
+                        </div>
+                    </li>
                     {% endfor%}
-                    {% endif %}
-                  </ul>
+                </div>
+                {% endif %}
+            </ul>
         </div>
     </div>
 </div>

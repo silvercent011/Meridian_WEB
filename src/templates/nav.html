@@ -22,11 +22,15 @@
                             <a href="#" data-target="slide-out" class="sidenav-trigger show-on-large"><i
                                     class="material-icons">menu</i></a>
                             {% endif %}
+                            {% if session['USRTYPE'] == 'ALUNO' %}
+                            <a href="#" data-target="slide-out2" class="sidenav-trigger show-on-mobile"><i
+                                    class="material-icons">menu</i></a>
+                            {% endif %}
                             <br>
                             <img src="{{link}}" height="50px">
                         </div>
                     </a>
-                    <ul id="nav-mobile" class="right">
+                    <ul id="nav-mobile" class="right hide-on-small-only">
                         {% if session['USRTYPE'] == 'USER' %}
                         <li><a href="/admin"><i class="material-icons">home</i></a></li>
                         {% endif %}
@@ -42,7 +46,7 @@
                             </div>
                         </li>
                         {% endif %}
-                        <li><a href="/aluno/logout" class="waves-effect purple accent-4 waves-light btn">Logout</a></li>
+                        <li><a href="/alunos/logout" class="waves-effect purple accent-4 waves-light btn">Logout</a></li>
                     </ul>
                 </div>
             </nav>
@@ -52,6 +56,22 @@
             {% for x in verificaPermissao() %}
             <li><a href="{{x['route']}}"><i class="material-icons">{{x['icon']}}</i>{{x['title']}}</a></li>
             {% endfor %}
+            <li><a href="/alunos/logout" class="waves-effect purple accent-4 waves-light btn">Logout</a></li>
+        </ul>
+        <ul class="sidenav center-align" id="slide-out2">
+            {% if session['USRTYPE'] == 'ALUNO' %}
+            <li>
+                <div class="chip purple accent-4 white-text"><img style="object-fit: cover;" src="{{imgAluno()}}{{data.matricula}}.jpg" alt="Contact Person">
+                {{data.nome.split(' ')[0]}} {{data.nome.split(' ')[-1]}}
+                </div>
+            </li>
+            <li>
+                <div class="chip purple accent-4 white-text">
+                    {{data.email}}
+                </div>
+            </li>   
+            {% endif %}
+            <li><a href="/alunos/logout" class="waves-effect purple accent-4 waves-light btn">Logout</a></li>
         </ul>
     </div>
 </body>

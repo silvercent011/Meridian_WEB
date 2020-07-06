@@ -30,10 +30,10 @@
         <div class="col s12 m12 l12">
             <div class="card">
                 <div class="card-content row center-align white-text">
-                <div class="col s12 m4 l3"><a class="waves-effect waves btn-flat"><i class="material-icons left">edit</i>Editar Dados</a></div>
-                <div class="col s12 m4 l3"><a class="waves-effect waves btn-flat"><i class="material-icons left">add</i>Criar Serviços</a></div>
-                <div class="col s12 m4 l3"><a class="waves-effect waves btn-flat"><i class="material-icons left">design_services</i>Editar Serviços</a></div>
-                <div class="col s12 m4 l3"><a class="waves-effect waves btn-flat"><i class="material-icons left">person_remove</i>Desativar Aluno</a></div>
+                {% set url = 'alunos/{{dados.matricula}}/edit' %}
+                <div class="col s12 m4 l4"><a href="{{data.matricula}}/edit" class="waves-effect waves btn-flat"><i class="material-icons left">edit</i>Editar Dados</a></div>
+                <div class="col s12 m4 l4"><a class="waves-effect waves btn-flat"><i class="material-icons left">design_services</i>Editar Serviços</a></div>
+                <div class="col s12 m4 l4"><a href="{{data.matricula}}/delete", class="waves-effect waves btn-flat"><i class="material-icons left">person_remove</i>Desativar Aluno</a></div>
             </div>
             </div>
         </div>
@@ -97,7 +97,8 @@
                     </div>
                 </li>
 
-                {% if matific %}
+                {% if services['matific'] %}
+                {% set matific = services['matific'] %}
                 <li>
                     <div class="collapsible-header"><i class="material-icons">calculate</i>Matific</div>
                     <div class="collapsible-body white">
@@ -109,7 +110,8 @@
                     </div>
                 </li>
                 {% endif %}
-                {% if inspira %}
+                {% if services['inspira'] %}
+                {% set inspira = services['inspira'] %}
                 <li>
                     <div class="collapsible-header"><i class="material-icons">school</i>Opet Inspira</div>
                     <div class="collapsible-body white">
@@ -121,7 +123,8 @@
                     </div>
                 </li>
                 {% endif %}
-                {% if estuda %}
+                {% if services['estuda'] %}
+                {% set estuda = services['estuda'] %}
                 <li>
                     <div class="collapsible-header"><i class="material-icons">book</i>Estuda.com (via Opet)</div>
                     <div class="collapsible-body white">

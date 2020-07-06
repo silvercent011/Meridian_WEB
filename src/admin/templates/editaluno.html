@@ -22,7 +22,7 @@
         <div class="col s12 m12 l12">
             <ul class="collapsible hoverable">
                 <li>
-                    <div class="collapsible-header"><i class="material-icons">person_add</i><b>CADASTRAR ALUNO</b></div>
+                    <div class="collapsible-header"><i class="material-icons">person_add</i><b>EDITAR DADOS DO ALUNO</b></div>
                 </li>
                 <li>
                     <div class="collapsible-header white">
@@ -40,7 +40,7 @@
 
                                     <div class="col s12 m6 l6">
                                         {{ form.matricula.label }}
-                                        {{ form.matricula() }}
+                                        {{ form.matricula(readonly=true) }}
                                     </div>
                                     <div class="col s12 m6 l6">
                                         {{ form.turma.label }}
