@@ -3,7 +3,7 @@ from flask_login import current_user, login_user, logout_user, login_required
 from flask import current_app as app
 
 from config import Settings
-from src.utils.request import GetWithoutAuth, GetWithKey, GetFree
+from src.utils.request import GetWithoutAuth, GetWithKey, GetFree, GetFromBoletimService
 from src.utils.user_loader import aluno_loader
 
 from src.aluno.utils.formAluno import AlunoForm
@@ -90,7 +90,7 @@ def login():
         return render_template('aluno.html', form=form, posts=posts, link=Settings().LOGO_LINK)
 
 
-@aluno_bp.route('/<aluno_id>', methods=['GET', 'POST'])
+@aluno_bp.route('/<aluno_id>/', methods=['GET', 'POST'])
 @login_required
 def painel(aluno_id):
     dados = Aluno_Logged(session['ALNAT'])
@@ -122,6 +122,16 @@ def painel(aluno_id):
     services['estuda'] = estuda
 
     return render_template('aluno_info.html', data=dados, services=services, link=Settings().LOGO_LINK)
+
+
+@aluno_bp.route('/<aluno_id>/overview', methods=['GET', 'POST'])
+@login_required
+def overview(aluno_id):
+    dataBol = GetFromBoletimService(aluno_id)
+    dadosAl = Aluno_Logged(session['ALNAT'])
+    materias = ['portugues', 'matematica', 'historia',
+                'ciencias', 'artes', 'geografia', 'ingles']
+    return render_template('overview.html', materias=materias, dataBol=dataBol, data=dadosAl, link=Settings().LOGO_LINK)
 
 
 @aluno_bp.route('/logout')

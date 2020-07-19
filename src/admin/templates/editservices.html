@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title>Meridian</title>
+<script>
+    $(document).ready(function () {
+        $('select').formSelect();
+    });
+</script>
+<script>
+    $(document).ready(function () {
+        $('.collapsible').collapsible();
+    });
+</script>
+{% endblock %}
+
+{% block body %}
+{% include 'nav.html' %}
+
+<div class="container">
+    <div class="row">
+        <div class="col s12 m12 l12">
+            <ul class="collapsible hoverable">
+                <li>
+                    <div class="collapsible-header"><b>INFORMAÇÕES E SERVIÇOS</b></div>
+                </li>
+
+                {% if 'matific' %}
+                <li>
+                    <div class="collapsible-header"><i class="material-icons">calculate</i>Matific</div>
+                    <div class="collapsible-body white">
+                        <form method="POST">
+                            {{ matific.csrf_token }}
+                            <div class="col s12 m12 l12">
+                                {{ matific.login.label }}
+                                {{ matific.login()}}
+                            </div>
+
+                            <div class="col s12 m12 l12">
+                                {{ matific.password.label }}
+                                {{ matific.password()}}
+                            </div>
+                            <div>
+                                <button type="submit" class=" col s12 m12 l12 purple accent-4 waves-light btn-large">
+                                    Atualizar Serviço
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

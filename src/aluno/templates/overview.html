@@ -1,0 +1,156 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title>Meridian - {{data['nome']}}</title>
+<script>
+    $(document).ready(function () {
+        $('.collapsible').collapsible();
+    });
+</script>
+<script>
+    $(document).ready(function () {
+        $('ul.tabs').tabs();
+    });
+
+</script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var elems = document.querySelectorAll('.materialboxed');
+        var instances = M.Materialbox.init(elems, options);
+    });
+
+    // Or with jQuery
+
+    $(document).ready(function () {
+        $('.materialboxed').materialbox();
+    });
+</script>
+{% endblock %}
+
+{% block body %}
+
+{% include 'nav.html' %}
+<div class="container">
+
+    <div class="row">
+        <div class="col s12 m12 l12">
+            <div class="card horizontal hoverable purple accent-4">
+                <div class="card-image hide-on-small-only">
+                    <img class="" height="100%" style="object-fit: cover;" src="{{imgAluno()}}{{data.matricula}}.jpg">
+                </div>
+                <div class="card-content left-align white-text">
+                    <div class="row">
+                        <div class="col s12 m12 l12">
+                            <h6><b>VISÂO GERAL - {{data.nivel}}</b></h6>
+                            <h6>Aluno(a):</h6>
+                            <h5><b>{{data.nome}}</b></h5>
+                            <div class="row">
+                                <div class="col s6 m6 l6">
+                                    <p>Matricula:</p>
+                                    <h6><b>{{data.matricula}}</b></h6>
+                                </div>
+                                <div class="col s6 m6 l6">
+                                    <p>Turma:</p>
+                                    <h6><b>{{data.turma}}</b></h6>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col offset-l1 offset-m1 offset-s1">
+                                <a href="./" class="waves-effect purple-text white waves-light btn">Voltar
+                                    para a tela
+                                    inicial</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% if admin %}
+    {% endif %}
+    <div class="row">
+        <div class="col s12 m12 l12">
+            <ul class="collapsible hoverable">
+                <li>
+                    <div class="collapsible-header"><b>VISÃO GERAL DO HISTÓRICO ESCOLAR</b></div>
+                </li>
+
+                {% if dataBol['notas'] %}
+                {% for ano in dataBol['notas'] %}
+                <li>
+                    <div class="collapsible-header"><i class="material-icons">receipt_long</i>{{ano}}</div>
+                    <div class="collapsible-body white">
+                        <div class="row">
+                            <div class="col s12">
+                                <ul class="tabs tabs-fixed-width">
+                                    {% for unid in dataBol['notas'][ano]%}
+                                    {% set un = unid[-1] %}
+                                    <li class="tab col"><a class="black-text" href="#{{unid}}"><b>Unidade {{un}}</b></a>
+                                    </li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                            {% for unid in dataBol['notas'][ano]%}
+                            <div id="{{unid}}" class="col s12">
+
+                                <table class="centered">
+                                    <thead>
+                                        <tr>
+                                            <th>Disciplina</th>
+                                            <th>Parciais</th>
+                                            <th>Globais</th>
+                                            <th>Média da Unidade</th>
+                                        </tr>
+                                    </thead>
+
+                                    <tbody>
+                                        {% if dataBol['notas'][ano][unid]%}
+                                        {% for materia in materias %}
+                                        <tr>
+                                            <!-- PARCIAIS -->
+                                            <td><b>{{materia.upper()}}</b></td>
+                                            {% if dataBol['notas'][ano][unid]['parciais'] %}
+                                            {% if dataBol['notas'][ano][unid]['parciais'][materia] %}
+                                            {% set nota = dataBol['notas'][ano][unid]['parciais'][materia]['nota'] %}
+                                            <td>{{dataBol['notas'][ano][unid]['parciais'][materia]['nota']}}</td>
+                                            {% else %}
+                                            <td><b>N/D</b></td>
+                                            {% endif %}
+                                            {% endif %}
+
+                                            <!-- GLOBAIS -->
+                                            {% if dataBol['notas'][ano][unid]['globais'] %}
+                                            {% if dataBol['notas'][ano][unid]['globais'][materia] %}
+                                            <td>{{dataBol['notas'][ano][unid]['globais'][materia]['nota']}}</td>
+                                            {% else %}
+                                            <td><b>N/D</b></td>
+                                            {% endif %}
+                                            {% endif %}
+
+                                            <!-- MEDIAS -->
+                                            {% if dataBol['notas'][ano][unid]['medias'] %}
+                                            {% if dataBol['notas'][ano][unid]['medias'][materia] %}
+                                            <td>{{dataBol['notas'][ano][unid]['medias'][materia]['nota']}}</td>
+                                            {% else %}
+                                            <td><b>N/D</b></td>
+                                            {% endif %}
+                                            {% endif %}
+                                        </tr>
+                                        {% endfor %}
+                                        {% endif %}
+                                    </tbody>
+                                </table>
+
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </li>
+                {% endfor %}
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+</div>
+{% endblock %}

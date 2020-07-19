@@ -16,6 +16,7 @@ from src.aluno.utils.modelAluno import Aluno_Logged
 from src.admin.utils.AlunoFilterForm import AlunoFilterForm
 from src.admin.utils.formEditAluno import AlunoEditForm
 from src.admin.utils.CadAlunoForm import CadAlunoForm
+from src.admin.utils.ServiceForm import ServiceEditForm
 
 
 def returnUser():
@@ -57,7 +58,8 @@ def carregaLink():
     return {
         'gerenciar_alunos': {'level': '1', 'route': '/admin/alunos', 'title': 'Gerenciar Alunos', 'icon': 'school'},
         'cadastrar_alunos': {'level': '1', 'route': '/admin/cadalunos', 'title': 'Cadastrar Alunos', 'icon': 'person_add'},
-        'gerar_codigo': {'level': '5', 'route': '/admin/coduser', 'title': 'Gerar Código de Cadastro', 'icon': 'vpn_key'},
+        'gerenciar_posts': {'level': '1', 'route': '/admin/posts', 'title': 'Gerenciar Posts', 'icon': 'create'},
+        'gerar_codigo': {'level': '5', 'route': '/admin/coduser', 'title': 'Criar Código de Cadastro', 'icon': 'vpn_key'},
         'cad_user': {'level': '5', 'route': '/admin/caduser', 'title': 'Cadastrar Usuário', 'icon': 'account_box'},
     }
 
@@ -206,6 +208,27 @@ def editAluno(matricula):
     form.dt_nascimento.data = defData
 
     return render_template('editaluno.html', form=form, link=Settings().LOGO_LINK, message=message, color=color)
+
+
+@admin_bp.route('/<matricula>/edit/services', methods=['GET', 'POST'])
+@login_required
+@verifica_admin
+def service(matricula):
+    matificData = GetWithUserToken(f"matific/{matricula}")
+    if 'error' not in matificData:
+        matific = ServiceEditForm()
+        matific.login.data = matificData['login']
+        matific.password.data = matificData['password']
+    else:
+        matific = None
+
+    # inspiraData = GetWithUserToken(f"inspira/{matricula}")
+    # inspira = ServiceEditForm()
+
+    # estudaData = GetWithUserToken(f"estuda/{matricula}")
+    # estuda = ServiceEditForm()
+
+    return render_template('editservices.html', matific=matific, link=Settings().LOGO_LINK, message=None, color=None)
 
 
 @admin_bp.route('/cadalunos', methods=['GET', 'POST'])

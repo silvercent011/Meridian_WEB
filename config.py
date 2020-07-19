@@ -8,6 +8,7 @@ class Settings:
     MD5_KEY = getenv('MD5_KEY')
     SCR_KEY = getenv('SCR_KEY')
     LOGO_LINK = getenv('LOGO_LINK')
+    BOLETIM_API = getenv('BOLETIM_API')
     SCH_NAME = getenv('SCH_NAME')
     PORT = getenv('PORT')
     VERSION = getenv('VERSION')

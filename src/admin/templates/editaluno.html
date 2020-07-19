@@ -22,7 +22,8 @@
         <div class="col s12 m12 l12">
             <ul class="collapsible hoverable">
                 <li>
-                    <div class="collapsible-header"><i class="material-icons">person_add</i><b>EDITAR DADOS DO ALUNO</b></div>
+                    <div class="collapsible-header"><i class="material-icons">person_add</i><b>EDITAR DADOS DO ALUNO</b>
+                    </div>
                 </li>
                 <li>
                     <div class="collapsible-header white">
@@ -57,10 +58,35 @@
 
                                     {{ form.csrf_token }}
                                     <div>
-                                        <button type="submit"
-                                            class=" col s12 m12 l12 purple accent-4 waves-light btn-large"> Cadastrar
-                                        </button>
+                                        <div class="row">
+                                            <button type="submit"
+                                                class=" col s12 m12 l12 purple accent-4 waves-light btn-large">
+                                                Atualizar
+                                                dados
+                                            </button>
+                                        </div>
                                     </div>
+                                    <div class="row">
+                                        <a href='edit/services'
+                                            class=" col s12 m12 l12 purple accent-4 waves-light btn-large">
+                                            Editar
+                                            Serviços
+                                        </a>
+                                    </div>
+                                    {% if message %}
+                                    <div class="row">
+                                        <div class="col s12 m12 l12">
+                                            <div class="card {{color}} darken-2 white-text pulse">
+                                                <div class="row card-content valign-wrapper center-align">
+                                                    <div class="col s12 m12 l12">
+                                                        <span
+                                                            class="card-title valign-wrapper center-align">{{message}}</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {% endif %}
                                 </div>
                             </form>
                         </div>
@@ -69,19 +95,6 @@
             </ul>
         </div>
     </div>
-    {% if message %}
-    <div class="row">
-        <div class="col s12 m12 l12">
-            <div class="card {{color}} darken-2 white-text pulse">
-                <div class="row card-content valign-wrapper center-align">
-                    <div class="col s12 m12 l12">
-                        <span class="card-title valign-wrapper center-align">{{message}}</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    {% endif %}
 </div>
 
 {% endblock %}

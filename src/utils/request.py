@@ -63,6 +63,7 @@ def GetWithUserToken(path):
 
     return json.loads(texto)
 
+
 def PostWithUserToken(path, data):
     url = f"{Settings().API_LINK}{path}"
     header = {
@@ -73,6 +74,7 @@ def PostWithUserToken(path, data):
     texto = retorno.text
 
     return json.loads(texto)
+
 
 def PatchWithUserToken(path, data):
     url = f"{Settings().API_LINK}{path}"
@@ -85,6 +87,7 @@ def PatchWithUserToken(path, data):
 
     return json.loads(texto)
 
+
 def DeleteWithUserToken(path):
     url = f"{Settings().API_LINK}{path}"
     header = {
@@ -94,4 +97,11 @@ def DeleteWithUserToken(path):
 
     texto = retorno.text
 
+    return json.loads(texto)
+
+
+def GetFromBoletimService(alunoID):
+    url = f"{Settings.BOLETIM_API}{alunoID}.json"
+    retorno = requests.get(url)
+    texto = retorno.text
     return json.loads(texto)

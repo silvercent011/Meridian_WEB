@@ -30,11 +30,13 @@
         <div class="col s12 m12 l12">
             <div class="card">
                 <div class="card-content row center-align white-text">
-                {% set url = 'alunos/{{dados.matricula}}/edit' %}
-                <div class="col s12 m4 l4"><a href="{{data.matricula}}/edit" class="waves-effect waves btn-flat"><i class="material-icons left">edit</i>Editar Dados</a></div>
-                <div class="col s12 m4 l4"><a class="waves-effect waves btn-flat"><i class="material-icons left">design_services</i>Editar Serviços</a></div>
-                <div class="col s12 m4 l4"><a href="{{data.matricula}}/delete", class="waves-effect waves btn-flat"><i class="material-icons left">person_remove</i>Desativar Aluno</a></div>
-            </div>
+                    {% set url = 'alunos/{{dados.matricula}}/edit' %}
+                    <div class="col s12 m6 l6"><a href="{{data.matricula}}/edit" class="waves-effect waves btn-flat"><i
+                                class="material-icons left">edit</i>Editar Dados</a></div>
+                    <div class="col s12 m6 l6"><a href="{{data.matricula}}/delete" ,
+                            class="waves-effect waves btn-flat disabled"><i
+                                class="material-icons left">person_remove</i>Desativar Aluno</a></div>
+                </div>
             </div>
         </div>
     </div>
@@ -94,6 +96,7 @@
                         <h6>Turma: {{data.turma}}</h6>
                         <a href="{{getBoletim()}}{{data.matricula}}"
                             class="waves-effect purple accent-4 waves-light btn">Acessar o Boletim</a>
+                        <a href="overview" class="waves-effect purple accent-4 waves-light btn">Visão Geral</a>
                     </div>
                 </li>
 
@@ -131,8 +134,8 @@
                         <h5><b>{{estuda['nome']}}</b></h5>
                         <h6>Login: {{estuda['email']}}</h6>
                         <h6>Senha: {{estuda['senha']}}</h6>
-                        <a href="http://opet.estuda.com"
-                            class="waves-effect purple accent-4 waves-light btn">Acessar Estuda.com (via Opet)</a>
+                        <a href="http://opet.estuda.com" class="waves-effect purple accent-4 waves-light btn">Acessar
+                            Estuda.com (via Opet)</a>
                     </div>
                 </li>
                 {% endif %}
