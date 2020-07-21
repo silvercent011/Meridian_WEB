@@ -204,7 +204,10 @@ def editAluno(matricula):
     form.nome.data = dados['nome']
     form.email.data = dados['email']
     form.matricula.data = dados['matricula']
-    defData = datetime.strptime(dados['dt_nascimento'], '%d/%m/%Y')
+    try:
+        defData = datetime.strptime(dados['dt_nascimento'], '%d/%m/%Y')
+    except:
+        defData = datetime.strptime('01/01/1999', '%d/%m/%Y')
     form.dt_nascimento.data = defData
 
     return render_template('editaluno.html', form=form, link=Settings().LOGO_LINK, message=message, color=color)
