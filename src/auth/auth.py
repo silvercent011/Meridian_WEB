@@ -58,3 +58,9 @@ def logout():
     [session.pop(key) for key in list(session.keys())]
     logout_user()
     return f"<h1>Deslogado</h1>"
+
+
+@auth_bp.route('/cadastre', methods=['GET', 'POST'])
+@login_required
+def cadastre():
+    return render_template('cadastre.html')

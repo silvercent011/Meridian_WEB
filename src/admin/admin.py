@@ -59,6 +59,7 @@ def carregaLink():
         'gerenciar_alunos': {'level': '1', 'route': '/admin/alunos', 'title': 'Gerenciar Alunos', 'icon': 'school'},
         'cadastrar_alunos': {'level': '1', 'route': '/admin/cadalunos', 'title': 'Cadastrar Alunos', 'icon': 'person_add'},
         'gerenciar_posts': {'level': '1', 'route': '/admin/posts', 'title': 'Gerenciar Posts', 'icon': 'create'},
+        'material_impresso': {'level': '1', 'route': '/admin/impresso', 'title': 'Material Impresso', 'icon': 'description'},
         'gerar_codigo': {'level': '5', 'route': '/admin/coduser', 'title': 'Criar Código de Cadastro', 'icon': 'vpn_key'},
         'cad_user': {'level': '5', 'route': '/admin/caduser', 'title': 'Cadastrar Usuário', 'icon': 'account_box'},
     }

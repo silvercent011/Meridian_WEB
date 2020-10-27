@@ -115,11 +115,19 @@ def painel(aluno_id):
             estuda = False
     except:
         estuda = False
+    
+    try:
+        voucher = GetWithKey(f"alunosp/voucher/{dados.matricula}")
+        if 'error' in voucher:
+            voucher = False
+    except:
+        voucher = False
 
     services = {}
     services['matific'] = matific
     services['inspira'] = inspira
     services['estuda'] = estuda
+    services['voucher'] = voucher
 
     return render_template('aluno_info.html', data=dados, services=services, link=Settings().LOGO_LINK)
 
