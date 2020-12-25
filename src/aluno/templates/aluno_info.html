@@ -93,8 +93,12 @@
                         <h5><b>{{data.nome}}</b></h5>
                         <h6>Matricula: {{data.matricula}}</h6>
                         <h6>Turma: {{data.turma}}</h6>
+                        {% if data.nivel == 'Ensino Fundamental I' %}
+                        <a href="boletim" class="waves-effect purple accent-4 waves-light btn">Acessar boletim</a>
+                        {% else %}
                         <a href="{{getBoletim()}}{{data.matricula}}"
                             class="waves-effect purple accent-4 waves-light btn">Acessar o Boletim</a>
+                        {% endif %}
                         <a href="overview" class="waves-effect purple accent-4 waves-light btn">Visão Geral</a>
                     </div>
                 </li>

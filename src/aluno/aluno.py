@@ -141,6 +141,15 @@ def overview(aluno_id):
                 'ciencias', 'artes', 'geografia', 'ingles']
     return render_template('overview.html', materias=materias, dataBol=dataBol, data=dadosAl, link=Settings().LOGO_LINK)
 
+@aluno_bp.route('/<aluno_id>/boletim', methods=['GET', 'POST'])
+@login_required
+def boletim(aluno_id):
+    dataBol = GetFromBoletimService(aluno_id)
+    dadosAl = Aluno_Logged(session['ALNAT'])
+    materias = ['matematica', 'portugues', 'artes',
+                   'ciencias', 'ingles', 'geografia', 'historia']
+    return render_template('boletim.html', materias=materias, dataBol=dataBol, data=dadosAl, link=Settings().LOGO_LINK)
+
 
 @aluno_bp.route('/logout')
 @login_required
