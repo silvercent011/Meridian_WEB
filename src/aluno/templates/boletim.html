@@ -124,25 +124,37 @@
                         {% set medfinal = namespace(value=0) %}
                         <th>{{materia.upper()}}</th>
                         {% for unidade in databol %}
+                            {% if databol[unidade]['parciais']%}
                             {% if databol[unidade]['parciais'][materia] %}
                             {% set parcial = databol[unidade]['parciais'][materia] %}
                             <td>{{parcial.nota}}</td>
                             {% else %}
                             <td>-</td>
                             {% endif %}
+                            {% else %}
+                            <td>-</td>
+                            {% endif %}
                             
+                            {% if databol[unidade]['globais'] %}
                             {% if databol[unidade]['globais'][materia] %}
                             {% set global = databol[unidade]['globais'][materia] %}
                             <td>{{global.nota}}</td>
                             {% else %}
                             <td>-</td>
                             {% endif %}
+                            {% else %}
+                            <td>-</td>
+                            {% endif %}
                             
+                            {% if databol[unidade]['medias'] %}
                             {% if databol[unidade]['medias'][materia] %}
                             {% set media = databol[unidade]['medias'][materia] %}
                             <td>{{media.nota}}</td>
                             {% set newmed = media.nota | float %}
                             {% set medfinal.value = medfinal.value + newmed %}
+                            {% else %}
+                            <td>-</td>
+                            {% endif %}
                             {% else %}
                             <td>-</td>
                             {% endif %}

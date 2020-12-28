@@ -142,7 +142,7 @@ def overview(aluno_id):
     return render_template('overview.html', materias=materias, dataBol=dataBol, data=dadosAl, link=Settings().LOGO_LINK)
 
 @aluno_bp.route('/<aluno_id>/boletim', methods=['GET', 'POST'])
-@login_required
+# @login_required
 def boletim(aluno_id):
     dataBol = GetFromBoletimService(aluno_id)
     dadosAl = Aluno_Logged(session['ALNAT'])
