@@ -3,7 +3,7 @@ from flask_login import current_user, login_user, logout_user, login_required
 from flask import current_app as app
 
 from config import Settings
-from src.utils.request import GetWithoutAuth, GetWithKey, GetFree, GetFromBoletimService
+from src.utils.request import GetWithoutAuth, GetWithKey, GetFree, GetFromBoletimService, GetWithUserToken
 from src.utils.user_loader import aluno_loader
 
 from src.aluno.utils.formAluno import AlunoForm
@@ -145,7 +145,7 @@ def overview(aluno_id):
 # @login_required
 def boletim(aluno_id):
     dataBol = GetFromBoletimService(aluno_id)
-    dadosAl = Aluno_Logged(session['ALNAT'])
+    dadosAl = GetWithUserToken(f'alunos/{aluno_id}')
     materias = ['matematica', 'portugues', 'artes',
                    'ciencias', 'ingles', 'geografia', 'historia']
     return render_template('boletim.html', materias=materias, dataBol=dataBol, data=dadosAl, link=Settings().LOGO_LINK)

@@ -40,9 +40,9 @@
         }
 
         @page {
-            size: A5;
-            margin: 4;
-            orientation: portrait;
+            size: A4;
+            margin: 2;
+            /* orientation: landscape; */
         }
 
         @media print {
@@ -171,9 +171,9 @@
                     {% endfor %}
                     <tr>
                         {% if medsFinal.pass == true %}
-                        <th colspan="40">Em regime de dependência</th>
+                        <th colspan="40">( ) Progressão Plena ( )Retomada de conteúdos</th>
                         {% else %}
-                        <th colspan="40">Aprovado por média</th>
+                        <th colspan="40">( ) Progressão Plena ( )Retomada de conteúdos</th>
                         {% endif %}
                     </tr>
                 </div>
