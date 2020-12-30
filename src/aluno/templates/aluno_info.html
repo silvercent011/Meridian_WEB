@@ -56,6 +56,9 @@
                     <div class="col s12 m12 l12">
                         {% if mensagem %}
                         <span class="card-title valign-wrapper center-align">Parabéns, pela realização do concurso Top 10, você obteve o desconto de {{top10.desconto}}%</span>
+                        {% if top10['posicao'] | int() > 0 %}
+                        <h3>⭐{{top10['posicao']}}º LUGAR⭐</h3>
+                        {% endif %}
                         <span class="card-title valign-wrapper center-align">Português: {{top10.port}} - Matemática: {{top10.mat}} - Redação: {{top10.red}} = Média: {{top10.media}}</span>
                         {% else %}
                         <span class="card-title valign-wrapper center-align">Infelizmente você não obteve desconto com sua pontuação do concurso Top 10 :(</span>
