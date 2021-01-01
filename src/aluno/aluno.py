@@ -37,6 +37,21 @@ def imgAluno():
 
 app.jinja_env.globals.update(imgAluno=imgAluno)
 
+def arredMedia(media):
+    media = float(media)
+    decimal = media - int(media)
+    inteiro = int(media)
+
+    if decimal < 0.24:
+        final = inteiro + 0.0
+    if decimal > 0.24 and decimal < 0.74:
+        final = inteiro + 0.5
+    if decimal > 0.74:
+        final = inteiro + 1.0
+    
+    return final
+    
+app.jinja_env.globals.update(arredMedia=arredMedia)
 
 def getPosts():
     getted = GetFree(f'posts')[::-1]

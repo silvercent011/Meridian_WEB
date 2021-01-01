@@ -161,8 +161,8 @@
                             
                             {% if unidade == 'U4' %}
                             {% set divisao = medfinal.value/4 %}
-                            <td>{{divisao}}</td>
-                            {% if divisao < 7.0 %}
+                            <td>{{arredMedia(divisao)}}</td>
+                            {% if arredMedia(divisao) < 7.0 %}
                                 {% set medsFinal.pass = true %}
                             {% endif%}
                             {% endif %}
